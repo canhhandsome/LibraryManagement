@@ -11,8 +11,9 @@ int main()
 {
 	ArrListB booklist;
 	booklist.ReadFile("Book.txt");
-	booklist.displayInfor(1, booklist.len);
 	Library l;
 	l.LoginPage();
+
+
 	return 0;
 }

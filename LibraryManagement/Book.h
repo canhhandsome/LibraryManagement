@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include "Util.h"
 #define MAX 1000
 using namespace std;
 
@@ -40,6 +41,7 @@ struct Book
         this->author = author;
         this->datepublish = datepublish;
         this->amount = amount;
+        StandizeData();
     }
 
     string BookGenreToString()
@@ -59,6 +61,13 @@ struct Book
         default:
             return "Unknown Genre";
         }
+    }
+
+    void StandizeData()
+    {
+        title = Util::StandizeName(title);
+        publisher = Util::StandizeName(publisher);
+        author = Util::StandizeName(author);
     }
 
 };
@@ -186,12 +195,19 @@ struct ArrListB
                 cin >> genreNumber;
                 bk.genre = static_cast<BookGenre>(genreNumber);
                 cout << "====================" << endl;
+                bk.StandizeData();
                 addItem(bk, len);
             }
             return 1;
         }
     }
 
+    void sortID();// quick
+    void sortNameBook(); // quick
+    void sortGenre(); // quick
+    void sortPublisher(); // quick
+    void sortAuthor(); // quick
+    void sortDatePublish(); // merge
 
 
 
@@ -261,7 +277,7 @@ struct ArrListB
             getline(ss, bk.author, ';');
             getline(ss, bk.datepublish, ';');
             ss >> bk.amount;
-
+            bk.StandizeData();
             // Add the read book to the list
             addItem(bk, len);
         }

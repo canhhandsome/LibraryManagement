@@ -131,6 +131,7 @@
     <ClCompile Include="LibraryManagement.cpp" />
     <ClCompile Include="NOTE.cpp" />
     <ClCompile Include="Reader.h" />
+    <ClCompile Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Book.h" />

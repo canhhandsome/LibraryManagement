@@ -18,6 +18,11 @@ private:
 	ArrListB books;
 public:
 
+	Library()
+	{
+		books.ReadFile("Book.txt");
+	}
+
 	//Methods
 	/*
 	void loginPage();
@@ -46,18 +51,19 @@ public:
 	}
 	bool loginReader()
 	{
-		return false;
+		return true;
 	}
 
 	void LoginPage()
 	{
 		int choice;
 		do {
-			cout << "Welcome to UTE_Library!\n";
-			cout << "Choose an option:\n";
-			cout << "1. Login Admin\n";
-			cout << "2. Login Reader\n";
-			cout << "3. Exit\n";
+			cout << "     Welcome to UTE_Library!\n";
+			cout << "------------------------------------\n";
+			cout << "| 1. Login Admin                   | \n";
+			cout << "| 2. Login Reader                  |\n";
+			cout << "| 3. Exit                          |\n";
+			cout << "------------------------------------\n";
 			cout << "Enter your choice: ";
 			cin >> choice;
 
@@ -192,9 +198,11 @@ public:
 	void MenuReader() {
 		int readerChoice;
 		do {
-			cout << "Welcome " << r.getName();
-			cout << "\nReader Menu:\n";
+			system("cls");
+			books.displayInfor(1, books.len);
+			cout << "\n         Reader Menu \n";
 			cout << "-----------------------------------\n";
+			cout << "| " << "Welcome " << r.getName()   << "                         |\n";
 			cout << "| 1. Get Days Expired              |\n";
 			cout << "| 2. Check Expired Books           |\n";
 			cout << "| 3. Borrow a Book                 |\n";
@@ -224,6 +232,7 @@ public:
 			case 6:
 				cout << "Returning to Login Page...\n";
 				_getch();
+				system("cls");
 				break;
 			default:
 				cout << "Invalid choice. Please enter a valid option.\n";

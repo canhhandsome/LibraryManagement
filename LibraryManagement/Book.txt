@@ -2,9 +2,9 @@ B001;The Catcher in the Rye;1;Little, Brown and Company;J.D. Salinger;01/10/1951
 B002;To Kill a Mockingbird;1;J.B. Lippincott & Co.;Harper Lee;11/07/1960;8
 B003;1984;2;Secker & Warburg;George Orwell;06/08/1949;3
 B004;The Great Gatsby;5;Charles Scribner's Sons;F. Scott Fitzgerald;10/04/1925;7
-B005;Pride and Prejudice;5;T. Egerton;Jane Austen;28/01/1813;6
+B005;Pride and Prejudice;5;T.     Egerton;Jane Austen;28/01/1813;6
 B006;The Hobbit;4;George Allen & Unwin;J.R.R. Tolkien;21/09/1937;4
 B007;The Da Vinci Code;1;Doubleday;Dan Brown;18/03/2003;9
-B008;The Lord of the Rings;4;George Allen & Unwin;J.R.R. Tolkien;29/07/1954;2
+B008;The Lord of the Rings;4;gEorGe AlLen &       UnWin;J.R.R. Tolkien;29/07/1954;2
 B009;The Shining;1;Doubleday;Stephen King;28/01/1977;6
 B010;The Girl with the Dragon Tattoo;1;Norstedts Forlag;Stieg Larsson;16/08/2005;

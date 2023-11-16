@@ -5,6 +5,7 @@
 #include<string>
 #include <fstream>
 #include "Book.h"
+#include "Util.h"
 using namespace std;
 
 class Reader
@@ -23,7 +24,7 @@ public:
 		this->username = username;
 		this->password = password;
 		this->id = id;
-		this->name = name;
+		this->name = Util::StandizeName(name);
 		this->phone = phone;
 		this->b = b;
 	}
