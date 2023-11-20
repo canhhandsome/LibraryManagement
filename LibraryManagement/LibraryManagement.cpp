@@ -11,9 +11,19 @@ int main()
 {
 	ArrListB booklist;
 	booklist.ReadFile("Book.txt");
-	Library l;
-	l.LoginPage();
-
-
+	//Library l;
+	//l.LoginPage();
+	Reader a("22","22","22","Nguyen Nhat An", "211331", booklist);
+	Reader b("21","21","21","Nguyen Le Bn", "221n331", booklist);
+	SLListR readerlist;
+	readerlist.AddReader(b);
+	readerlist.AddReader(a);
+	//  cout << "truoc khi sap xep:"<<endl;
+	// readerlist.duyet();
+	// cout <<"sau khi sort: "<<endl;
+	// readerlist.SortName();
+	//  readerlist.duyet();
+	Reader test = readerlist.SearchName("   Nguyen nhat AN");
+	cout <<test.id<<endl;
 	return 0;
 }

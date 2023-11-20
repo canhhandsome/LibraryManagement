@@ -202,7 +202,7 @@ public:
 			books.displayInfor(1, books.len);
 			cout << "\n         Reader Menu \n";
 			cout << "-----------------------------------\n";
-			cout << "| " << "Welcome " << r.getName()   << "                         |\n";
+			cout << "| " << "Welcome " << r.name   << "                         |\n";
 			cout << "| 1. Get Days Expired              |\n";
 			cout << "| 2. Check Expired Books           |\n";
 			cout << "| 3. Borrow a Book                 |\n";
