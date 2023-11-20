@@ -18,12 +18,20 @@ int main()
 	SLListR readerlist;
 	readerlist.AddReader(b);
 	readerlist.AddReader(a);
+<<<<<<< HEAD
 	  cout << "truoc khi sap xep:"<<endl;
 	 readerlist.duyet();
 	 cout <<"sau khi sort: "<<endl;
 	 readerlist.SortName();
 	  readerlist.duyet();
+=======
+	cout << "truoc khi sap xep:"<<endl;
+	readerlist.duyet();
+	cout <<"sau khi sort: "<<endl;
+	readerlist.SortName();
+	readerlist.duyet();
+>>>>>>> 05dbdf000ab583b281aad6ac16e5bad9866dd6ec
 	Reader test = readerlist.SearchName("   Nguyen nhat AN");
-	cout <<test.id<<endl;
+	cout <<test.name<<endl;
 	return 0;
 }
