@@ -9,13 +9,15 @@
 #define MAX 1000
 using namespace std;
 
+
+
 enum BookGenre
 {
     Mystery = '1',
     ScienceFiction = '2',
     Romance = '3',
     Fantasy = '4',
-    NonFiction = '5'
+    NonFiction = '5'    
 };
 
 struct Book
@@ -71,6 +73,7 @@ struct Book
     }
 
 };
+
 
 struct ArrListB
 {
@@ -201,10 +204,44 @@ struct ArrListB
             return 1;
         }
     }
+    int partition(int low, int high, const string& fieldName) {
+        Book pivot = books[high];
+        int i = low - 1;
 
-    void sortID();// quick
+        for (int j = low; j <= high - 1; j++) {
+            if (fieldName == "idbook" && books[j].idbook < pivot.idbook) {
+                i++;
+                swap(books[i], books[j]);
+            }
+            else if (fieldName == "genre" && books[j].genre < pivot.genre) {
+                i++;
+                swap(books[i], books[j]);
+            }
+        }
+
+        swap(books[i + 1], books[high]);
+        return i + 1;
+    }
+
+    // Quicksort algorithm for sorting an array of strings
+    void quickSort(int low, int high, const string& fieldName) {
+        if (low < high) {
+            int pi = partition(low, high, fieldName);
+
+            quickSort(low, pi - 1, fieldName);
+            quickSort(pi + 1, high, fieldName);
+        }
+    }
+
+    void sortID()   //quick
+    {
+        quickSort(0, len - 1, "idbook");
+    }
     void sortNameBook(); // quick
-    void sortGenre(); // quick
+    void sortGenre()    // quick
+    {
+        quickSort(0, len - 1, "genre");
+    }
     void sortPublisher(); // quick
     void sortAuthor(); // quick
     void sortDatePublish(); // merge
@@ -286,3 +323,4 @@ struct ArrListB
         return 1;
     }
 };
+
