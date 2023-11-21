@@ -13,11 +13,11 @@ using namespace std;
 
 enum BookGenre
 {
-    Mystery = '1',
-    ScienceFiction = '2',
-    Romance = '3',
-    Fantasy = '4',
-    NonFiction = '5'    
+    Mystery = 1,
+    ScienceFiction = 2,
+    Romance = 3,
+    Fantasy = 4,
+    NonFiction = 5
 };
 
 struct Book
@@ -163,16 +163,16 @@ struct ArrListB
         }
     }
 
-    int searchId(string bookId)
+    Book searchId(string bookId)
     {
         for (int i = 0; i < len; i++)
         {
             if (books[i].idbook == bookId)
             {
-                return i + 1;
+                return books[i + 1];
             }
         }
-        return -1;
+        return Book();
     }
 
     int inputBook(int n)
@@ -194,16 +194,45 @@ struct ArrListB
                 getline(cin, bk.title);
                 cout << "1. Mystery - 2. Science Fiction - 3. Romance - 4. Fantasy - 5. Non-Fiction\n";
                 cout << "Enter the genre of the book: ";
-                int genreNumber;
-                cin >> genreNumber;
-                bk.genre = static_cast<BookGenre>(genreNumber);
-                cout << "====================" << endl;
+                int genre;
+                cin >> genre;
+                switch (genre)
+                {
+                case 1:
+                    bk.genre = Mystery;
+                    break;
+                case 2:
+                    bk.genre = ScienceFiction;
+                    break;
+                case 3:
+                    bk.genre = Romance;
+                    break;
+                case 4:
+                    bk.genre = Fantasy;
+                    break;
+                case 5:
+                    bk.genre = NonFiction;
+                    break;
+                default:
+                    std::cout << "Invalid genre input: " << genre << std::endl;
+                    // Handle the error or ask the user to enter a valid genre
+                    return 1; // Exit the program with an error code
+                }
+                cout << "Enter Publisher: ";
+                cin.ignore();
+                getline(cin, bk.publisher);
+                cout << "Enter Author: ";
+                getline(cin, bk.author);
+                cout << "Enter Date Publish (dd/mm/yyyy): ";
+                getline(cin, bk.datepublish);
+
                 bk.StandizeData();
                 addItem(bk, len);
             }
             return 1;
         }
     }
+
     int partition(int low, int high, const string& fieldName) {
         Book pivot = books[high];
         int i = low - 1;
@@ -249,6 +278,8 @@ struct ArrListB
 
 
     void displayInfor(int f, int t) {
+
+        cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------";
         cout << "\n| No. | Book ID | Title                                      | Genre            | Publisher                        | Author                   | Publish Date | Amount |\n";
         cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
         Book bk;
@@ -287,28 +318,31 @@ struct ArrListB
 
             string genreNumber;
             getline(ss, genreNumber, ';');
-            char genreChar = genreNumber[0];
-
-            switch (genreChar) {
-            case '1':
+            int genre = stoi(genreNumber);
+            switch (genre)
+            {
+            case 1:
                 bk.genre = Mystery;
                 break;
-            case '2':
+            case 2:
                 bk.genre = ScienceFiction;
                 break;
-            case '3':
+            case 3:
                 bk.genre = Romance;
                 break;
-            case '4':
+            case 4:
                 bk.genre = Fantasy;
                 break;
-            case '5':
+            case 5:
                 bk.genre = NonFiction;
                 break;
             default:
-                cerr << "Invalid genre: " << genreNumber << endl;
-                // Handle the error accordingly
+                std::cerr << "Invalid genre input: " << genre << std::endl;
+                // Handle the error or ask the user to enter a valid genre
+                return 1; // Exit the program with an error code
             }
+
+
             // Use getline for publisher to handle spaces and special characters
             getline(ss, bk.publisher, ';');
             getline(ss, bk.author, ';');
@@ -322,5 +356,30 @@ struct ArrListB
         file.close();
         return 1;
     }
-};
 
+    int UpdateBook(string filename)
+    {
+        std::ofstream file(filename);
+        if (!file) {
+            std::cerr << "Error opening file for writing: " << filename << std::endl;
+            return 0;
+        }
+
+        for (int i = 0; i < len; ++i) {
+            const Book& bk = books[i];
+
+            // Write book data to the file
+            file << bk.idbook << ';'
+                << bk.title << ';'
+                << bk.genre << ';'
+                << bk.publisher << ';'
+                << bk.author << ';'
+                << bk.datepublish << ';'
+                << bk.amount << '\n';
+        }
+
+        file.close();
+        return 1;
+    }
+
+};
