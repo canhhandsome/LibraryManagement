@@ -164,6 +164,83 @@ struct ArrListB
         }
     }
 
+    ArrListB* searchId(string bookId)
+    {
+        ArrListB* b = new ArrListB();
+        for (int i = 0; i < len; i++)
+        {
+            if (books[i].idbook == bookId)
+            {
+                b->addItem(books[i], len);
+            }
+        }
+        return b;
+    }
+    
+    ArrListB* searchName(string name)
+    {
+        ArrListB* b = new ArrListB();
+        for (int i = 0; i < len; i++)
+        {
+            if (books[i].title == Util::StandizeName(name))
+            {
+                b->addItem(books[i], len);
+            }
+        }
+        return b;
+    }
+
+    ArrListB* searchGenre(string Genre)
+    {
+        ArrListB* b = new ArrListB();
+        for (int i = 0; i < len; i++)
+        {
+            if (books[i].BookGenreToString() == Util::StandizeName(Genre))
+            {
+                b->addItem(books[i], len);
+            }
+        }
+        return b;
+    }
+
+    ArrListB* searchPublisher(string publisher)
+    {
+        ArrListB* b = new ArrListB();
+        for (int i = 0; i < len; i++)
+        {
+            if (books[i].publisher == Util::StandizeName(publisher))
+            {
+                b->addItem(books[i], len);
+            }
+        }
+        return b;
+    }
+
+    ArrListB* searchAuthor(string author)
+    {
+        ArrListB* b = new ArrListB();
+        for (int i = 0; i < len; i++)
+        {
+            if (books[i].author == Util::StandizeName(author))
+            {
+                b->addItem(books[i], len);
+            }
+        }
+        return b;
+    }
+
+    ArrListB* searchDatePublish(string date)
+    {
+        ArrListB* b = new ArrListB();
+        for (int i = 0; i < len; i++)
+        {
+            if (books[i].datepublish == date)
+            {
+                b->addItem(books[i], len);
+            }
+        }
+        return b;
+    }
 
     int inputBook(int n)
     {
@@ -521,7 +598,18 @@ struct ArrListB
         }
         return b;
     }
-
+     ArrListB* SearchName(string name)
+    {
+        ArrListB* b = new ArrListB();
+        for (int i = 0; i < len; i++)
+        {
+            if (books[i].title.find(Util::StandizeName(name)) != string::npos)
+            {
+                b->addItem(books[i], len);
+            }
+        }
+        return b;
+    }
     ArrListB* searchGenre(string Genre)
     {
         ArrListB* b = new ArrListB();
