@@ -21,6 +21,7 @@ public:
 	Library()
 	{
 		books->ReadFile("Book.txt");
+		readers.ReadFile("Reader.txt");
 	}
 
 	//Methods
@@ -47,21 +48,24 @@ public:
 
 	bool loginAdmin()
 	{
-		return true;
+		return admin.login();
+
 	}
 	bool loginReader()
 	{
-		return true;
+		return readers.login(r);
 	}
 
 	void LoginPage()
 	{
 		int choice;
 		do {
+			system("cls");
 			cout << "     Welcome to UTE_Library!\n";
 			cout << "------------------------------------\n";
 			cout << "| 1. Login Admin                   | \n";
 			cout << "| 2. Login Reader                  |\n";
+			cout << "| 2. Register Reader                    |\n";
 			cout << "| 3. Exit                          |\n";
 			cout << "------------------------------------\n";
 			cout << "Enter your choice: ";
@@ -91,6 +95,9 @@ public:
 				}
 				break;
 			case 3:
+				addReader();
+				break;
+			case 4:
 				cout << "Exiting...\n";
 				break;
 			default:
@@ -108,12 +115,61 @@ public:
 
 	void addReader()
 	{
-
+		readers.inputReader();
 	}
 
 	void borrowBook()
 	{
+		int readerChoice;
+		do {
+			system("cls");
+			cout << "\n         Reader Menu \n";
+			int welcomePadding = static_cast<int>((36 - r.name.length()) / 2.0);
+			cout << "-----------------------------------\n";
+			cout << "| " << "Welcome " << setw(welcomePadding + r.name.length()) << r.name << " |\n";
+			cout << "| 1. Get Days Expired              |\n";
+			cout << "| 2. Check Expired Books           |\n";
+			cout << "| 3. Borrow a Book                 |\n";
+			cout << "| 4. Find ID Book                  |\n";
+			cout << "| 5. Find Name Book                |\n";
+			cout << "| 1. Find Publisher                |\n";
+			cout << "| 2. Find Authors                  |\n";
+			cout << "| 3. Sort ID Book                  |\n";
+			cout << "| 4. Sort Name Book                |\n";
+			cout << "| 5. Sort Publisher                |\n";
+			cout << "| 5. Sort Authors                  |\n";
+			cout << "| 5. Sort Date Publish             |\n";
+			cout << "| 6. Back to Menu Page             |\n";
+			cout << "-----------------------------------\n";
+			cout << "Enter your choice: ";
+			cin >> readerChoice;
 
+			switch (readerChoice) {
+			case 1:
+				getDayExpired();
+				break;
+			case 2:
+				checkExpired();
+				break;
+			case 3:
+				borrowBook();
+				break;
+			case 4:
+				findBook();
+				break;
+			case 5:
+				sortBook();
+				break;
+			case 6:
+				cout << "Returning to Login Page...\n";
+				_getch();
+				system("cls");
+				break;
+			default:
+				cout << "Invalid choice. Please enter a valid option.\n";
+			}
+
+		} while (readerChoice != 6);
 	}
 	void findBook()
 	{
@@ -124,10 +180,7 @@ public:
 
 	}
 
-	void findReader()
-	{
-
-	}
+	
 	void sortReader()
 	{
 
@@ -157,11 +210,12 @@ public:
 			cout << "\nAdmin Menu:\n";
 			cout << "-----------------------------------\n";
 			cout << "| 1. Add Book                      |\n";
-			cout << "| 2. Add Reader                    |\n";
-			cout << "| 3. Find Reader                   |\n";
-			cout << "| 4. Sort Readers                  |\n";
-			cout << "| 5. Update Library                |\n";
-			cout << "| 6. Back to Main Menu             |\n";
+			cout << "| 2. Find ID Reader                |\n";
+			cout << "| 3. Find Name Reader              |\n";
+			cout << "| 4. Sort ID Reader                |\n";
+			cout << "| 5. Sort Name Reader              |\n";
+			cout << "| 6. Update Library                |\n";
+			cout << "| 7. Back to Main Menu             |\n";
 			cout << "-----------------------------------\n";
 			cout << "Enter your choice: ";
 			cin >> adminChoice;
@@ -171,18 +225,37 @@ public:
 				addBook();
 				break;
 			case 2:
-				addReader();
+			{
+				string id;
+				cout << "Enter ID Reader: "; cin >> id;
+				Reader k = readers.SearchId(id);
+				if (k.name.empty()) cout << "There aren't reader you want to find!\n";
+				else k.display();
 				break;
+			}
 			case 3:
-				findReader();
+			{
+				string name;
+				cout << "Enter Name Reader: "; getline(cin, name);
+				Reader k = readers.SearchId(name);
+				if (k.name.empty()) cout << "There aren't reader you want to find!\n";
+				else k.display();
 				break;
+			}
 			case 4:
-				sortReader();
+			{
+				readers.SortID();
+				readers.displayReader();
 				break;
+			}
 			case 5:
-				updateLibrary();
+				readers.SortName();
+				readers.displayReader();
 				break;
 			case 6:
+				updateLibrary();
+				break;
+			case 7:
 				cout << "Returning to Login Page...\n";
 				_getch();
 				system("cls");
@@ -199,10 +272,10 @@ public:
 		int readerChoice;
 		do {
 			system("cls");
-			books->displayInfor(1, books->len);
 			cout << "\n         Reader Menu \n";
+			int welcomePadding = static_cast<int>((36 - r.name.length()) / 2.0);
 			cout << "-----------------------------------\n";
-			cout << "| " << "Welcome " << r.name   << "                         |\n";
+			cout << "| " << "Welcome " << setw(welcomePadding + r.name.length()) << r.name << " |\n";
 			cout << "| 1. Get Days Expired              |\n";
 			cout << "| 2. Check Expired Books           |\n";
 			cout << "| 3. Borrow a Book                 |\n";
@@ -241,6 +314,7 @@ public:
 		} while (readerChoice != 6);
 	}
 
+
 	void ReadFile()
 	{
 
@@ -248,6 +322,7 @@ public:
 
 	void updateLibrary() // write file
 	{
-
+		readers.UpdateFile("Reader.txt");
+		books->UpdateBook("Book.txt");
 	}
 };

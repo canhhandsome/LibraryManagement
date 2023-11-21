@@ -468,7 +468,6 @@ struct ArrListB
         {
             const Book& bk = books[i];
 
-            // Write book data to the file
             file << bk.idbook << ';'
                 << bk.title << ';'
                 << bk.genre << ';'

@@ -28,6 +28,25 @@ struct Reader
 		this->b = b;
 	}
 
+
+	void display() {
+		cout << "--------------------------------------------------------------\n";
+		cout << "| No. | Reader ID | Name                | Phone              |\n";
+		cout << "--------------------------------------------------------------\n";
+		int count = 1;
+			cout << "|" << setw(5) << count << "|";
+			cout << setw(11) << id << "|";
+			cout << setw(21) << name << "|";
+			cout << setw(20) << phone << "|\n";
+		cout << "--------------------------------------------------------------\n";
+	}
+
+	void login()
+	{
+		cout << "Enter Username: "; cin >> username;
+		cout << "Enter Password: "; cin >> password;
+	}
+
 	bool ReadFile()
 	{
 		string filename = BorrowAdress + id + ".txt";
@@ -179,7 +198,13 @@ public:
 	void inputReader()
 	{
 		Reader reader;
-		cout << 
+		cout << "Enter Username: "; getline(cin, reader.username);
+		cout << "Enter Password: "; getline(cin, reader.password);
+		cout << "Enter ID Reader: "; getline(cin, reader.id);
+		cout << "Enter Fullname: "; getline(cin, reader.name);
+		reader.name = Util::StandizeName(reader.name);
+		cout << "Enter Phone number: "; getline(cin, reader.phone);
+		AddReader(reader);
 	}
 
 	void displayReader() {
@@ -233,6 +258,24 @@ public:
         return Reader();
     }
 
+	bool login(Reader& r)
+	{
+		r.login();
+		NodeR* tmp = head;
+		while (tmp != NULL)
+		{
+			Reader reader = tmp->data;
+			if (r.username == reader.username && r.password == reader.password)
+			{
+				cout << "Login Success\n";
+				r = reader;
+				return true;
+			}
+			tmp = tmp->next;
+		}
+		return false;
+	}
+
 	bool ReadFile(string filename)
 	{
 		ifstream file(filename);
@@ -255,6 +298,32 @@ public:
 			if (!reader.ReadFile())
 				cout << "Reader " << reader.name << " doesn't borrow any books\n";
 			AddReader(reader);
+		}
+
+		file.close();
+		return 1;
+	}
+
+	bool UpdateFile(string filename)
+	{
+		std::ofstream file(filename);
+		if (!file)
+		{
+			std::cerr << "Error opening file for writing: " << filename << std::endl;
+			return 0;
+		}
+		NodeR* tmp = head;
+		while (tmp != NULL)
+		{
+			Reader reader = tmp->data;
+
+			// Write book data to the file
+			file << reader.username << ';'
+				<< reader.password << ';'
+				<< reader.id << ';'
+				<< reader.name << ';'
+				<< reader.phone << '\n';
+			tmp = tmp->next;
 		}
 
 		file.close();
