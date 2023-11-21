@@ -173,20 +173,32 @@ public:
 				stringstream ss2(tmp2->data.name);
 				while(ss1 >> contain1)
 				{
+					if(contain1 == ".") continue;
 					name1[index1++] = contain1;
 				}
 				while(ss2 >> contain2)
 				{
+					if(contain2 == ".") continue;
 					name2[index2++] = contain2;
 				}
-				while(index1 >= 0 && index2 >= 0)
+				int shouldbreak = 0;
+				index1--;
+				index2--;
+				while(index1 >= 0 && index2 >= 0 && shouldbreak == 0)
 				{
-					index1--;
-					index2--;
-					if(name1[index1] > name2[index2])
+					if(name1[index1] == name2[index2])
+					{
+						index1--;
+						index2--;
+					}
+					else if(name1[index1] > name2[index2])
 					{
 						swap(tmp2->data, tmp1->data);
-						break;
+						shouldbreak = 1;
+					}
+					else
+					{
+						shouldbreak = 1;
 					}
 				}
 				tmp1 = tmp1->next;
@@ -248,7 +260,7 @@ public:
         while (current != NULL)
         {
             // Assuming that the search should be case-insensitive
-            if (current->data.name == Util::StandizeName(Name))
+            if (current->data.name.find(Util::StandizeName(Name)) != string::npos)
             {
                 return current->data;
             }

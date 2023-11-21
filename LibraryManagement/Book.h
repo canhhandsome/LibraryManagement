@@ -164,17 +164,6 @@ struct ArrListB
         }
     }
 
-    Book searchId(string bookId)
-    {
-        for (int i = 0; i < len; i++)
-        {
-            if (books[i].idbook == bookId)
-            {
-                return books[i + 1];
-            }
-        }
-        return Book();
-    }
 
     int inputBook(int n)
     {
@@ -240,10 +229,9 @@ struct ArrListB
     {
         Book pivot = books[high];
         int i = low - 1;
-
         for (int j = low; j <= high - 1; j++)
         {
-            if (fieldName == "idbook" && books[j].idbook < pivot.idbook)
+             if (fieldName == "idbook" && books[j].idbook < pivot.idbook)
             {
                 i++;
                 swap(books[i], books[j]);
@@ -253,8 +241,53 @@ struct ArrListB
                 i++;
                 swap(books[i], books[j]);
             }
+            else if(fieldName == "title" && books[j].title < pivot.title)
+            {
+                i++;
+                swap(books[i], books[j]);
+            }
+            else if(fieldName == "author" || fieldName == "publisher")
+            {
+                int index1 = 0, index2 = 0;
+				string name1[100];
+				string name2[100];
+				string contain1;
+				string contain2;
+				stringstream ss1(pivot.author);
+				stringstream ss2(books[j].author);
+				while(ss1 >> contain1)
+				{
+                    if(contain1 == ".") continue;
+					else name1[index1++] = contain1;
+				}
+				while(ss2 >> contain2)
+				{
+                    if(contain2 == ".") continue;
+					else name2[index2++] = contain2;
+				}
+                int shouldbreak = 0;
+				index1--;
+				index2--;
+				while(index1 >= 0 && index2 >= 0 && shouldbreak == 0)
+				{
+					if(name1[index1] == name2[index2])
+					{
+						index1--;
+						index2--;
+					}
+					else if(name1[index1] > name2[index2])
+					{
+						i++;
+                        swap(books[i], books[j]);
+                        shouldbreak = 1;
+					}
+					else
+					{
+						shouldbreak = 1;
+					}
+                }
+            }
         }
-
         swap(books[i + 1], books[high]);
         return i + 1;
     }
@@ -275,13 +308,22 @@ struct ArrListB
     {
         quickSort(0, len - 1, "idbook");
     }
-    void sortNameBook(); // quick
+    void sortNameBook()
+    {
+        quickSort(0, len - 1, "title");
+    }
     void sortGenre()     // quick
     {
         quickSort(0, len - 1, "genre");
     }
-    void sortPublisher(); // quick
-    void sortAuthor();    // quick
+    void sortPublisher()
+    {
+        quickSort(0, len - 1, "publisher");
+    }
+    void sortAuthor()
+    {
+        quickSort(0, len - 1, "author");
+    }
     // void sortDatePublish(); // merge
     void displayInfor(int f, int t)
     {
@@ -454,7 +496,84 @@ struct ArrListB
     {
         mergeSortDatePublish(0, len - 1);
     }
+    ArrListB* searchId(string bookId)
+    {
+        ArrListB* b = new ArrListB();
+        for (int i = 0; i < len; i++)
+        {
+            if (books[i].idbook == bookId)
+            {
+                b->addItem(books[i], len);
+            }
+        }
+        return b;
+    }
 
+    ArrListB* searchName(string name)
+    {
+        ArrListB* b = new ArrListB();
+        for (int i = 0; i < len; i++)
+        {
+            if (books[i].title == Util::StandizeName(name))
+            {
+                b->addItem(books[i], len);
+            }
+        }
+        return b;
+    }
+
+    ArrListB* searchGenre(string Genre)
+    {
+        ArrListB* b = new ArrListB();
+        for (int i = 0; i < len; i++)
+        {
+            if (books[i].BookGenreToString() == Util::StandizeName(Genre))
+            {
+                b->addItem(books[i], len);
+            }
+        }
+        return b;
+    }
+
+    ArrListB* searchPublisher(string publisher)
+    {
+        ArrListB* b = new ArrListB();
+        for (int i = 0; i < len; i++)
+        {
+            if (books[i].publisher.find(Util::StandizeName(publisher)) != string::npos)
+            {
+                b->addItem(books[i], len);
+            }
+        }
+        return b;
+    }
+
+    ArrListB* searchAuthor(string author)
+    {
+        ArrListB* b = new ArrListB();
+        for (int i = 0; i < len; i++)
+        {
+            if (books[i].author.find(Util::StandizeName(author)) != string::npos)
+            {
+                b->addItem(books[i], len);
+            }
+        }
+        return b;
+    }
+
+    ArrListB* searchDatePublish(string date)
+    {
+        Util::StandardlizeDate(date);
+        ArrListB* b = new ArrListB();
+        for (int i = 0; i < len; i++)
+        {
+            if (books[i].datepublish.find(date) != string::npos)
+            {
+                b->addItem(books[i], len);
+            }
+        }
+        return b;
+    }
     int UpdateBook(string filename)
     {
         std::ofstream file(filename);

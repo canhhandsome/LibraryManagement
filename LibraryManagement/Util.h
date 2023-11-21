@@ -49,7 +49,6 @@ public:
 			result.erase(pos, 1);
 			pos = result.find("  ");
 		}
-
 		// Trim leading and trailing spaces
 		char firstNonSpace = result.find_first_not_of(" ");
 		char lastNonSpace = result.find_last_not_of(" ");
@@ -59,7 +58,24 @@ public:
 	}
 
 
-
+	string static StandardlizeDate(string &s)
+	{
+		if(s[2] != '/' && s[2] != string::npos)
+		{
+			s = "0" + s;
+		}
+		if(s[5] != '/' && s[5] != string::npos)
+		{
+			s.insert(3, "0");
+		}
+		else
+		{
+			if(s.size() > 3)
+			{
+				s.insert(3, "0");
+			}
+		}
+	}
 	bool static isLeepYear(int year)
 	{
 		if (year % 400 == 0)
