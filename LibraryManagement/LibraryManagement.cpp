@@ -12,7 +12,7 @@ int main()
 	ArrListB b;
 	b.ReadFile("Book.txt");
 	b.displayInfor(1, b.len);
-	/*b.inputBook(1);
-	b.UpdateBook("Book.txt");*/
+	b.inputBook(1);
+	b.UpdateBook("Book.txt");
 	return 0;
 }
