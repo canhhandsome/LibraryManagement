@@ -17,7 +17,7 @@ enum BookGenre
     ScienceFiction = '2',
     Romance = '3',
     Fantasy = '4',
-    NonFiction = '5'    
+    NonFiction = '5'
 };
 
 struct Book
@@ -175,35 +175,6 @@ struct ArrListB
         return -1;
     }
 
-    int inputBook(int n)
-    {
-        if (len + n > maxLen)
-        {
-            return 0;
-        }
-        else
-        {
-            Book bk;
-            for (int i = 1; i <= n; i++)
-            {
-                cout << "Book " << i << endl;
-                cout << "Enter book ID: ";
-                cin >> bk.idbook;
-                cout << "Enter title: ";
-                cin.ignore();
-                getline(cin, bk.title);
-                cout << "1. Mystery - 2. Science Fiction - 3. Romance - 4. Fantasy - 5. Non-Fiction\n";
-                cout << "Enter the genre of the book: ";
-                int genreNumber;
-                cin >> genreNumber;
-                bk.genre = static_cast<BookGenre>(genreNumber);
-                cout << "====================" << endl;
-                bk.StandizeData();
-                addItem(bk, len);
-            }
-            return 1;
-        }
-    }
     int partition(int low, int high, const string& fieldName) {
         Book pivot = books[high];
         int i = low - 1;
@@ -246,7 +217,7 @@ struct ArrListB
 
     void sortAuthor(); // quick
 
-    
+
 
 
     void displayInfor(int f, int t) {
@@ -323,14 +294,13 @@ struct ArrListB
         file.close();
         return 1;
     }
-<<<<<<< HEAD
-=======
+
     void mergeDatePublish(int left, int mid, int right)
     {
         int n1 = mid - left + 1;
         int n2 = right - mid;
-        Book *leftArr = new Book[n1];
-        Book *rightArr = new Book[n2];
+        Book* leftArr = new Book[n1];
+        Book* rightArr = new Book[n2];
         for (int i = 0; i < n1; i++)
             leftArr[i] = books[left + i];
         for (int j = 0; j < n2; j++)
@@ -428,21 +398,21 @@ struct ArrListB
 
         for (int i = 0; i < len; ++i)
         {
-            const Book &bk = books[i];
+            const Book& bk = books[i];
 
             // Write book data to the file
             file << bk.idbook << ';'
-                 << bk.title << ';'
-                 << bk.genre << ';'
-                 << bk.publisher << ';'
-                 << bk.author << ';'
-                 << bk.datepublish << ';'
-                 << bk.amount << '\n';
+                << bk.title << ';'
+                << bk.genre << ';'
+                << bk.publisher << ';'
+                << bk.author << ';'
+                << bk.datepublish << ';'
+                << bk.amount << '\n';
         }
 
         file.close();
         return 1;
     }
->>>>>>> 822ae38dbe9f521ef5dede470f9d7659ed5b5a20
+
 };
 
