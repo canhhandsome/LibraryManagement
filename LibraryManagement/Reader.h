@@ -15,17 +15,10 @@ struct Reader
 	string id;
 	string name;
 	string phone;
-<<<<<<< HEAD
-
-	ArrListB *b= new ArrListB();
-	Reader() {}
-	Reader(string username, string password, string id, string name, string phone,ArrListB *b)
-=======
 	ArrListB* b = new ArrListB();
 	
 	Reader() {}
 	Reader(string username, string password, string id, string name, string phone, ArrListB* b)
->>>>>>> a94dc3d4d8cec59b96a3a4a3ab72b4d6ebd5be5b
 	{
 		this->username = username;
 		this->password = password;
