@@ -7,4 +7,4 @@ B006;The Hobbit;4;George Allen & Unwin;J.R.R. Tolkien;21/09/1937;4
 B007;The Da Vinci Code;1;Doubleday;Dan Brown;18/03/2003;9
 B008;The Lord of the Rings;4;gEorGe AlLen &       UnWin;J.R.R. Tolkien;29/07/1954;2
 B009;The Shining;1;Doubleday;Stephen King;28/01/1977;6
-B010;The Girl with the Dragon Tattoo;1;Norstedts Forlag;Stieg Larsson;16/08/2005;
+B010;The Girl with the Dragon Tattoo;1;Norstedts Forlag;Stieg Larsson;16/08/2005;5
