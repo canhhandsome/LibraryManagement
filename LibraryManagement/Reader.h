@@ -15,10 +15,17 @@ struct Reader
 	string id;
 	string name;
 	string phone;
+<<<<<<< HEAD
 
 	ArrListB *b= new ArrListB();
 	Reader() {}
 	Reader(string username, string password, string id, string name, string phone,ArrListB *b)
+=======
+	ArrListB* b = new ArrListB();
+	
+	Reader() {}
+	Reader(string username, string password, string id, string name, string phone, ArrListB* b)
+>>>>>>> a94dc3d4d8cec59b96a3a4a3ab72b4d6ebd5be5b
 	{
 		this->username = username;
 		this->password = password;
@@ -28,6 +35,15 @@ struct Reader
 		this->b = b;
 	}
 
+	bool ReadFile()
+	{
+		string filename = BorrowAdress + id + ".txt";
+		if (Util::CheckFile(filename)) {
+			return false;
+		}
+		b->ReadFile(filename);
+		return true;
+	}
 	// Methods
 	/*
 	bool Login();
@@ -67,9 +83,9 @@ public:
 	Reader searchName(string name); done
 	void sortID(); // bubble done
 	void sortName(); // bubble done
-	void displayReader();
-	void ReadFile();
-	void inputReader();
+	void displayReader(); 
+	void ReadFile(); 
+	void inputReader(); 
 	void UpdateReader();
 	*/
 	//Methods
@@ -151,7 +167,7 @@ public:
 				{
 					name2[index2++] = contain2;
 				}
-				while(index1 < 0 || index2 < 0)
+				while(index1 >= 0 && index2 >= 0)
 				{
 					index1--;
 					index2--;
@@ -166,15 +182,27 @@ public:
 			}
 		}
 	}
-	void duyet(){
-        NodeR *current = head;
-        while(current != NULL){
-            cout << current->data.id<<" ";
-            cout << current->data.name <<" ";
-            cout << current->data.phone<<endl;
-            current = current->next;
-        }
-    }
+	void displayReader() {
+		cout << "--------------------------------------------------------------\n";
+		cout << "| No. | Reader ID | Name                | Phone              |\n";
+		cout << "--------------------------------------------------------------\n";
+
+		NodeR* current = head;
+		int count = 1;
+
+		while (current != NULL) {
+			cout << "|" << setw(5) << count << "|";
+			cout << setw(11) << current->data.id << "|";
+			cout << setw(21) << current->data.name << "|";
+			cout << setw(20) << current->data.phone << "|\n";
+
+			current = current->next;
+			count++;
+		}
+
+		cout << "--------------------------------------------------------------\n";
+	}
+
 	Reader SearchId(string ID)
     {
         NodeR* current = head;
@@ -204,6 +232,34 @@ public:
         // Return an empty Reader object if the name is not found
         return Reader();
     }
+
+	bool ReadFile(string filename)
+	{
+		ifstream file(filename);
+		if (!file) {
+			cerr << "Error opening file: " << filename << endl;
+			return 0;
+		}
+
+		string line;
+		while (getline(file, line)) {
+			istringstream ss(line);
+			// Read using stringstream to avoid issues with mixed reading methods
+			Reader reader;
+			getline(ss, reader.username, ';');
+			getline(ss, reader.password, ';');			
+			getline(ss, reader.id, ';');
+			getline(ss, reader.name, ';');
+			reader.name = Util::StandizeName(reader.name);
+			getline(ss, reader.phone);
+			if (!reader.ReadFile())
+				cout << "Reader " << reader.name << " doesn't borrow any books\n";
+			AddReader(reader);
+		}
+
+		file.close();
+		return 1;
+	}
 };
 //Single Linklist
 //Single Linklist

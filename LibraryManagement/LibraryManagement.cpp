@@ -9,6 +9,7 @@ using namespace std;
 
 int main()
 {
+<<<<<<< HEAD
 	ArrListB booklist;
 	booklist.ReadFile("Book.txt");
 	//Library l;
@@ -29,5 +30,12 @@ int main()
 	booklist.inputBook(1);
 	booklist.displayInfor(1,booklist.len);
 	booklist.displayInfor(1, booklist.len);
+=======
+	ArrListB b;
+	b.ReadFile("Book.txt");
+	b.displayInfor(1, b.len);
+	b.inputBook(1);
+	b.UpdateBook("Book.txt");
+>>>>>>> a94dc3d4d8cec59b96a3a4a3ab72b4d6ebd5be5b
 	return 0;
 }
