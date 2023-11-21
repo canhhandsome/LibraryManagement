@@ -323,5 +323,126 @@ struct ArrListB
         file.close();
         return 1;
     }
+<<<<<<< HEAD
+=======
+    void mergeDatePublish(int left, int mid, int right)
+    {
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+        Book *leftArr = new Book[n1];
+        Book *rightArr = new Book[n2];
+        for (int i = 0; i < n1; i++)
+            leftArr[i] = books[left + i];
+        for (int j = 0; j < n2; j++)
+            rightArr[j] = books[mid + 1 + j];
+        int i = 0;
+        int j = 0;
+        int k = left;
+        while (i < n1 && j < n2)
+        {
+            int index1 = 0, index2 = 0;
+            string date1[3];
+            string date2[3];
+            string contain1;
+            string contain2;
+            stringstream ss1(leftArr[i].datepublish);
+            stringstream ss2(rightArr[j].datepublish);
+            while (getline(ss1, contain1, '/'))
+            {
+                date1[index1++] = contain1;
+            }
+            while (getline(ss2, contain2, '/'))
+            {
+                date2[index2++] = contain2;
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                cout << date1[i] << " ";
+            }
+            while (index1 >= 0 && index2 >= 0)
+            {
+                index1--;
+                index2--;
+                if (date1[index1] <= date2[index2])
+                {
+                    books[k] = leftArr[i];
+                    i++;
+                    break;
+                }
+                else
+                {
+                    books[k] = rightArr[j];
+                    j++;
+                    break;
+                }
+            }
+            k++;
+        }
+        while (i < n1)
+        {
+            books[k] = leftArr[i];
+            i++;
+            k++;
+        }
+        while (j < n2)
+        {
+            books[k] = rightArr[j];
+            j++;
+            k++;
+        }
+
+        // Free the memory allocated for temporary arrays
+        delete[] leftArr;
+        delete[] rightArr;
+    }
+
+    // Recursive function to perform merge sort on datepublish
+    void mergeSortDatePublish(int left, int right)
+    {
+        if (left < right)
+        {
+            // Same as (left+right)/2, but avoids overflow for large left and right
+            int mid = left + (right - left) / 2;
+
+            // Recursively sort the first and second halves
+            mergeSortDatePublish(left, mid);
+            mergeSortDatePublish(mid + 1, right);
+
+            // Merge the sorted halves based on datepublish
+            mergeDatePublish(left, mid, right);
+        }
+    }
+    void sortDatePublish() // merge
+    {
+        mergeSortDatePublish(0, len - 1);
+    }
+
+    int UpdateBook(string filename)
+    {
+        std::ofstream file(filename);
+        if (!file)
+        {
+            std::cerr << "Error opening file for writing: " << filename << std::endl;
+            return 0;
+        }
+
+        for (int i = 0; i < len; ++i)
+        {
+            const Book &bk = books[i];
+
+            // Write book data to the file
+            file << bk.idbook << ';'
+                 << bk.title << ';'
+                 << bk.genre << ';'
+                 << bk.publisher << ';'
+                 << bk.author << ';'
+                 << bk.datepublish << ';'
+                 << bk.amount << '\n';
+        }
+
+        file.close();
+        return 1;
+    }
+>>>>>>> 822ae38dbe9f521ef5dede470f9d7659ed5b5a20
 };
 
