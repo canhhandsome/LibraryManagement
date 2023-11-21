@@ -244,8 +244,8 @@ struct ArrListB
     }
     void sortPublisher(); // quick
     void sortAuthor(); // quick
-    void sortDatePublish(); // merge
 
+    
 
 
     void displayInfor(int f, int t) {

@@ -16,14 +16,14 @@ struct Reader
 	string name;
 	string phone;
 
-	ArrListB b;
+	ArrListB *b= new ArrListB();
 	Reader() {}
-	Reader(string username, string password, string id, string name, string phone, ArrListB b)
+	Reader(string username, string password, string id, string name, string phone,ArrListB *b)
 	{
 		this->username = username;
 		this->password = password;
 		this->id = id;
-		this->name = Util::StandizeName(name);
+		this->name = name; //Util::StandizeName(name);
 		this->phone = phone;
 		this->b = b;
 	}
