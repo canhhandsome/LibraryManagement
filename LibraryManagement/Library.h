@@ -15,7 +15,7 @@ private:
 	Reader r;
 	Admin admin;
 	SLListR readers;
-	ArrListB *books = new ArrListB();
+	ArrListB* books = new ArrListB();
 public:
 
 	Library()
@@ -65,8 +65,8 @@ public:
 			cout << "------------------------------------\n";
 			cout << "| 1. Login Admin                   | \n";
 			cout << "| 2. Login Reader                  |\n";
-			cout << "| 2. Register Reader                    |\n";
-			cout << "| 3. Exit                          |\n";
+			cout << "| 3. Register Reader               |\n";
+			cout << "| 4. Exit                          |\n";
 			cout << "------------------------------------\n";
 			cout << "Enter your choice: ";
 			cin >> choice;
@@ -104,7 +104,7 @@ public:
 				cout << "Invalid choice. Please enter a valid option.";
 			}
 
-		} while (choice != 3);
+		} while (choice != 4);
 	}
 
 
@@ -123,23 +123,24 @@ public:
 		int readerChoice;
 		do {
 			system("cls");
-			cout << "\n         Reader Menu \n";
-			int welcomePadding = static_cast<int>((36 - r.name.length()) / 2.0);
+			books->displayInfor(1, books->len);
+			cout << "Welcome " << r.name;
+			cout << "\n        Borrow Menu \n";
 			cout << "-----------------------------------\n";
-			cout << "| " << "Welcome " << setw(welcomePadding + r.name.length()) << r.name << " |\n";
-			cout << "| 1. Get Days Expired              |\n";
-			cout << "| 2. Check Expired Books           |\n";
-			cout << "| 3. Borrow a Book                 |\n";
-			cout << "| 4. Find ID Book                  |\n";
-			cout << "| 5. Find Name Book                |\n";
-			cout << "| 1. Find Publisher                |\n";
-			cout << "| 2. Find Authors                  |\n";
-			cout << "| 3. Sort ID Book                  |\n";
-			cout << "| 4. Sort Name Book                |\n";
-			cout << "| 5. Sort Publisher                |\n";
-			cout << "| 5. Sort Authors                  |\n";
-			cout << "| 5. Sort Date Publish             |\n";
-			cout << "| 6. Back to Menu Page             |\n";
+			cout << "| 1. Get Days Expired             |\n";
+			cout << "| 2. Check Expired Books          |\n";
+			cout << "| 3. Borrow a Book                |\n";
+			cout << "| 4. Find ID Book                 |\n";
+			cout << "| 5. Find Name Book               |\n";
+			cout << "| 6. Find Publisher               |\n";
+			cout << "| 7. Find Authors                 |\n";
+			cout << "| 8. Sort ID Book                 |\n";
+			cout << "| 9. Sort Name Book               |\n";
+			cout << "| 10. Sort Genre                  |\n";
+			cout << "| 11. Sort Publisher              |\n";
+			cout << "| 12. Sort Authors                |\n";
+			cout << "| 13. Sort Date Publish           |\n";
+			cout << "| 14. Back to Menu Page           |\n";
 			cout << "-----------------------------------\n";
 			cout << "Enter your choice: ";
 			cin >> readerChoice;
@@ -161,7 +162,31 @@ public:
 				sortBook();
 				break;
 			case 6:
-				cout << "Returning to Login Page...\n";
+				getDayExpired();
+				break;
+			case 7:
+				checkExpired();
+				break;
+			case 8:
+				books->sortID();
+				break;
+			case 9:
+				books->sortNameBook();
+				break;
+			case 10:
+				books->sortGenre();
+				break;
+			case 11:
+				books->sortPublisher();
+				break;
+			case 12:
+				books->sortAuthor();
+				break;
+			case 13:
+				checkExpired();
+				break;
+			case 14:
+				cout << "Returning to Menu Page...\n";
 				_getch();
 				system("cls");
 				break;
@@ -169,7 +194,7 @@ public:
 				cout << "Invalid choice. Please enter a valid option.\n";
 			}
 
-		} while (readerChoice != 6);
+		} while (readerChoice != 14);
 	}
 	void findBook()
 	{
@@ -180,7 +205,7 @@ public:
 
 	}
 
-	
+
 	void sortReader()
 	{
 
@@ -264,7 +289,7 @@ public:
 				cout << "Invalid choice. Please enter a valid option.\n";
 			}
 
-		} while (adminChoice != 6);
+		} while (adminChoice != 7);
 	}
 
 
@@ -275,20 +300,19 @@ public:
 			cout << "\n         Reader Menu \n";
 			int welcomePadding = static_cast<int>((36 - r.name.length()) / 2.0);
 			cout << "-----------------------------------\n";
-			cout << "| " << "Welcome " << setw(welcomePadding + r.name.length()) << r.name << " |\n";
-			cout << "| 1. Get Days Expired              |\n";
-			cout << "| 2. Check Expired Books           |\n";
-			cout << "| 3. Borrow a Book                 |\n";
-			cout << "| 4. Find a Book                   |\n";
-			cout << "| 5. Sort Books                    |\n";
-			cout << "| 6. Back to Login Page            |\n";
+			cout << "| " << "Welcome " << setw(welcomePadding + r.name.length()) << r.name << "|\n";
+			cout << "| 1. Borrow Book                  |\n";
+			cout << "| 2. Display your books           |\n";
+			cout << "| 3. Check Fine                   |\n";
+			cout << "| 4. Display Information          |\n";
+			cout << "| 5. Back to Login Page           |\n";
 			cout << "-----------------------------------\n";
 			cout << "Enter your choice: ";
 			cin >> readerChoice;
 
 			switch (readerChoice) {
 			case 1:
-				getDayExpired();
+				borrowBook();
 				break;
 			case 2:
 				checkExpired();
@@ -300,9 +324,6 @@ public:
 				findBook();
 				break;
 			case 5:
-				sortBook();
-				break;
-			case 6:
 				cout << "Returning to Login Page...\n";
 				_getch();
 				system("cls");
@@ -311,7 +332,7 @@ public:
 				cout << "Invalid choice. Please enter a valid option.\n";
 			}
 
-		} while (readerChoice != 6);
+		} while (readerChoice != 5);
 	}
 
 
