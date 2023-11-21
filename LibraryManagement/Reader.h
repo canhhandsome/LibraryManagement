@@ -37,8 +37,6 @@ struct Reader
 		b->ReadFile(filename);
 		return true;
 	}
-
-
 	// Methods
 	/*
 	bool Login();
@@ -78,9 +76,9 @@ public:
 	Reader searchName(string name); done
 	void sortID(); // bubble done
 	void sortName(); // bubble done
-	void displayReader();
-	void ReadFile();
-	void inputReader();
+	void displayReader(); 
+	void ReadFile(); 
+	void inputReader(); 
 	void UpdateReader();
 	*/
 	//Methods
