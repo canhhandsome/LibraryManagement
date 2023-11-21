@@ -2,12 +2,27 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-
+#include <fstream>
+#define BorrowAdress "./ReaderBorrowed/"
 using namespace std;
+
+
 
 class Util
 {
 public:
+
+
+	bool static CheckFile(string filename)
+	{
+		fstream file;
+		file.open(filename);
+		if (!file.is_open()) return false;
+		if (!file.eof()) return false;
+		file.close();
+		return true;
+	}
+
 	std::string static StandizeName(string& s) {
 		std::string result = s;
 
@@ -82,34 +97,34 @@ public:
 		}
 	}
 
-	void static addDay(string date, int numDay)
-	{
-		int d = 0, m = 0, y = 0;
+	void static addDay(string date, int numDay) {
+		int d, m, y;
 		istringstream iss(date);
-		string data;
-		getline(iss, data, '/');	
-		d = stoi(data);
-		getline(iss, data, '/');	
-		m = stoi(data);
-		getline(iss, data, '/');	
-		y = stoi(data);
-		while (numDay--)
-		{
-			if (m == 12 && d == FindDay(m, y))
-			{
-				y++;
-				m = 1;
-				d = 1;
-			}
-			else if (m < 12 && d == FindDay(m, y))
-			{
-				m++;
-				d = 1;
-			}
-			else d++;
-		}
-		cout << "\t\t\tThe next day: " << d << "/" << m << "/" << y << endl;
-	}
+		char delimiter;
 
+		if (!(iss >> d >> delimiter >> m >> delimiter >> y)) {
+			cout << "Invalid date format: " << date << endl;
+			return;
+		}
+
+		while (numDay--) {
+			int daysInMonth = FindDay(m, y);
+
+			if (d == daysInMonth) {
+				d = 1;
+
+				if (m == 12) {
+					m = 1;
+					y++;
+				}
+				else {
+					m++;
+				}
+			}
+			else {
+				d++;
+			}
+		}
+	}
 
 };

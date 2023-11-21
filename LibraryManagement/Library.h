@@ -15,12 +15,12 @@ private:
 	Reader r;
 	Admin admin;
 	SLListR readers;
-	ArrListB books;
+	ArrListB *books = new ArrListB();
 public:
 
 	Library()
 	{
-		books.ReadFile("Book.txt");
+		books->ReadFile("Book.txt");
 	}
 
 	//Methods
@@ -103,7 +103,7 @@ public:
 
 	void addBook()
 	{
-		books.inputBook(1);
+		books->inputBook(1);
 	}
 
 	void addReader()
@@ -199,7 +199,7 @@ public:
 		int readerChoice;
 		do {
 			system("cls");
-			books.displayInfor(1, books.len);
+			books->displayInfor(1, books->len);
 			cout << "\n         Reader Menu \n";
 			cout << "-----------------------------------\n";
 			cout << "| " << "Welcome " << r.name   << "                         |\n";
