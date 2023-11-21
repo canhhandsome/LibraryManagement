@@ -397,7 +397,7 @@ struct ArrListB
             {
                 cout << date1[i] << " ";
             }
-            while (index1 > 0 && index2 > 0)
+            while (index1 >= 0 && index2 >= 0)
             {
                 index1--;
                 index2--;
