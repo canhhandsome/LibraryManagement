@@ -8,5 +8,5 @@ B007;The Da Vinci Code;1;Doubleday;Dan Brown;18/03/2003;9
 B008;The Lord Of The Rings;4;George Allen & Unwin;J.R.R. Tolkien;29/07/1954;2
 B009;The Shining;1;Doubleday;Stephen King;28/01/1977;6
 B010;The Girl With The Dragon Tattoo;1;Norstedts Forlag;Stieg Larsson;16/08/2005;6
-B012;Harry Potter;4;Uk;Jk Rowling;12/12/199;4223816
+B012;Harry Potter;4;Uk;Jk Rowling;12/12/1999;7
 B013;Tenro;3;Gassaco;Real Taste;12/3/2001;4

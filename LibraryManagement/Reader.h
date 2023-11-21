@@ -175,6 +175,13 @@ public:
 			}
 		}
 	}
+
+	void inputReader()
+	{
+		Reader reader;
+		cout << 
+	}
+
 	void displayReader() {
 		cout << "--------------------------------------------------------------\n";
 		cout << "| No. | Reader ID | Name                | Phone              |\n";
