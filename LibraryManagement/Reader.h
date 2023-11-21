@@ -15,10 +15,9 @@ struct Reader
 	string id;
 	string name;
 	string phone;
-
-	ArrListB b;
+	ArrListB *b = new ArrListB() ;
 	Reader() {}
-	Reader(string username, string password, string id, string name, string phone, ArrListB b)
+	Reader(string username, string password, string id, string name, string phone, ArrListB *b)
 	{
 		this->username = username;
 		this->password = password;
@@ -27,7 +26,10 @@ struct Reader
 		this->phone = phone;
 		this->b = b;
 	}
-
+	void test(){
+		b->sortID();
+		b->displayInfor(1,3);
+	}
 	// Methods
 	/*
 	bool Login();
@@ -67,9 +69,9 @@ public:
 	Reader searchName(string name); done
 	void sortID(); // bubble done
 	void sortName(); // bubble done
-	void displayReader();
-	void ReadFile();
-	void inputReader();
+	void displayReader(); 
+	void ReadFile(); 
+	void inputReader(); 
 	void UpdateReader();
 	*/
 	//Methods
@@ -151,7 +153,7 @@ public:
 				{
 					name2[index2++] = contain2;
 				}
-				while(index1 < 0 || index2 < 0)
+				while(index1 < 0 && index2 < 0)
 				{
 					index1--;
 					index2--;
