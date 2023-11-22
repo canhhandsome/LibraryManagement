@@ -56,6 +56,15 @@ public:
 		return readers.login(r);
 	}
 
+	string inputSearch()
+	{
+		string search;
+		cout << "Enter your search: ";
+		getline(cin, search);
+		cout << "\n" << search;
+		return search;
+	}
+
 	void LoginPage()
 	{
 		int choice;
@@ -73,6 +82,7 @@ public:
 
 			switch (choice) {
 			case 1:
+			{
 				if (loginAdmin())
 				{
 					MenuAdmin();
@@ -83,7 +93,9 @@ public:
 					system("cls");
 				}
 				break;
+			}
 			case 2:
+			{
 				if (loginReader())
 				{
 					MenuReader();
@@ -94,6 +106,7 @@ public:
 					system("cls");
 				}
 				break;
+			}
 			case 3:
 				addReader();
 				break;
@@ -102,6 +115,7 @@ public:
 				break;
 			default:
 				cout << "Invalid choice. Please enter a valid option.";
+				_getch();
 			}
 
 		} while (choice != 4);
@@ -111,19 +125,23 @@ public:
 	void addBook()
 	{
 		books->inputBook(1);
+		books->UpdateBook("Book.txt");
 	}
 
 	void addReader()
 	{
 		readers.inputReader();
+		readers.UpdateFile("Reader.txt");
 	}
 
 	void borrowBook()
 	{
 		int readerChoice;
+		ArrListB* tmp = books;
 		do {
 			system("cls");
-			books->displayInfor(1, books->len);
+			tmp->displayInfor(1, tmp->len);
+			tmp = books;
 			cout << "Welcome " << r.name;
 			cout << "\n        Borrow Menu \n";
 			cout << "-----------------------------------\n";
@@ -134,17 +152,19 @@ public:
 			cout << "| 5. Find Name Book               |\n";
 			cout << "| 6. Find Publisher               |\n";
 			cout << "| 7. Find Authors                 |\n";
-			cout << "| 8. Sort ID Book                 |\n";
-			cout << "| 9. Sort Name Book               |\n";
-			cout << "| 10. Sort Genre                  |\n";
-			cout << "| 11. Sort Publisher              |\n";
-			cout << "| 12. Sort Authors                |\n";
-			cout << "| 13. Sort Date Publish           |\n";
-			cout << "| 14. Back to Menu Page           |\n";
+			cout << "| 8. Find Genre                   |\n";
+			cout << "| 9. Find Date Publish            |\n";
+			cout << "| 10. Sort ID Book                |\n";
+			cout << "| 11. Sort Name Book              |\n";
+			cout << "| 12. Sort Genre                  |\n";
+			cout << "| 13. Sort Publisher              |\n";
+			cout << "| 14. Sort Authors                |\n";
+			cout << "| 15. Sort Date Publish           |\n";
+			cout << "| 16. Back to Menu Page           |\n";
 			cout << "-----------------------------------\n";
 			cout << "Enter your choice: ";
 			cin >> readerChoice;
-
+			cin.ignore();
 			switch (readerChoice) {
 			case 1:
 				getDayExpired();
@@ -156,45 +176,58 @@ public:
 				borrowBook();
 				break;
 			case 4:
-				findBook();
+			{
+				string k = inputSearch();
+				tmp = tmp->searchId(k);
 				break;
+			}
 			case 5:
-				sortBook();
+				tmp = tmp->searchName(inputSearch());
 				break;
 			case 6:
-				getDayExpired();
+				tmp = tmp->searchPublisher(inputSearch());
+				_getch();
 				break;
 			case 7:
-				checkExpired();
+				tmp = tmp->searchAuthor(inputSearch());
 				break;
 			case 8:
-				books->sortID();
+				tmp = tmp->searchGenre(inputSearch());
+				_getch();
 				break;
 			case 9:
-				books->sortNameBook();
+				cout << "Please enter like this: dd/mm/yyyy\n";
+				tmp = tmp->searchDatePublish(inputSearch());
 				break;
 			case 10:
-				books->sortGenre();
+				books->sortID();
 				break;
 			case 11:
-				books->sortPublisher();
+				books->sortNameBook();
 				break;
 			case 12:
-				books->sortAuthor();
+				books->sortGenre();
 				break;
 			case 13:
-				checkExpired();
+				books->sortPublisher();
 				break;
 			case 14:
+				books->sortAuthor();
+				break;
+			case 15:
+				books->sortDatePublish();
+				break;
+			case 16:
 				cout << "Returning to Menu Page...\n";
 				_getch();
 				system("cls");
 				break;
 			default:
 				cout << "Invalid choice. Please enter a valid option.\n";
+				_getch();
 			}
 
-		} while (readerChoice != 14);
+		} while (readerChoice != 16);
 	}
 	void findBook()
 	{
@@ -253,29 +286,35 @@ public:
 			{
 				string id;
 				cout << "Enter ID Reader: "; cin >> id;
+				cin.ignore();
 				Reader k = readers.SearchId(id);
 				if (k.name.empty()) cout << "There aren't reader you want to find!\n";
 				else k.display();
+				_getch();
 				break;
 			}
 			case 3:
 			{
 				string name;
+				cin.ignore();
 				cout << "Enter Name Reader: "; getline(cin, name);
-				Reader k = readers.SearchId(name);
+				Reader k = readers.SearchName(name);
 				if (k.name.empty()) cout << "There aren't reader you want to find!\n";
 				else k.display();
+				_getch();
 				break;
 			}
 			case 4:
 			{
 				readers.SortID();
 				readers.displayReader();
+				_getch();
 				break;
 			}
 			case 5:
 				readers.SortName();
 				readers.displayReader();
+				_getch();
 				break;
 			case 6:
 				updateLibrary();
@@ -287,8 +326,8 @@ public:
 				break;
 			default:
 				cout << "Invalid choice. Please enter a valid option.\n";
+				_getch();
 			}
-
 		} while (adminChoice != 7);
 	}
 
@@ -330,6 +369,7 @@ public:
 				break;
 			default:
 				cout << "Invalid choice. Please enter a valid option.\n";
+				_getch();
 			}
 
 		} while (readerChoice != 5);

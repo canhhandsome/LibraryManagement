@@ -58,7 +58,7 @@ public:
 	}
 
 
-	string static StandardlizeDate(string &s)
+	void static StandardlizeDate(string &s)
 	{
 		if(s[2] != '/' && s[2] != string::npos)
 		{
